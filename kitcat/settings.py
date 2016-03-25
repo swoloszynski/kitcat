@@ -76,8 +76,10 @@ WSGI_APPLICATION = 'kitcat.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.environ.get('KITCAT_DB_NAME'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'USER': os.environ.get('KITCAT_DB_USER'),
+        'PASSWORD': os.environ.get('KITCAT_DB_PASSWORD'),
     }
 }
 
@@ -87,7 +89,7 @@ DATABASES = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'EST'
 
 USE_I18N = True
 
