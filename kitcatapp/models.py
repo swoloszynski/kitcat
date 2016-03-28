@@ -45,5 +45,26 @@ class Connection(models.Model):
     due_date = models.DateTimeField(default=0)
     notes = models.TextField(blank=True)
 
+    def _get_status(self):
+        "Returns the status of the connection based on today's date."
+        SCHEDULED = 'Scheduled'
+        DUE       = 'Due'
+        OVERDUE   = 'Overdue'
+        COMPLETE  = 'Complete'
+
+        if self.is_complete is True:
+            return COMPLETE
+
+        today = datetime.today()
+        delta = (self.due_date.date() - datetime.today().date()).days
+
+        if delta < 0:
+            return SCHEDULED
+        elif delta is 0:
+            return DUE
+        else:
+            return OVERDUE
+    status = property(_get_status)
+
     def __str__(self):
         return '%s %s %s' % (self.contact.first_name, self.contact.last_name, self.due_date.date())
