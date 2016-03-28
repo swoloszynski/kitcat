@@ -34,9 +34,9 @@ export KITCAT_DB_PASSWORD=<password>
 * Start server: `python manage.py runserver`
 * [View in your browser](http://127.0.0.1:8000/)
 
-#### Testing
+## Testing
 
-## Code coverage
+#### Code coverage
 
 * Generate code coverage report:
 ```
@@ -45,5 +45,5 @@ coverage html
 ```
 * View results at `htmlcov/index.html`
 
-## Run unit tests
+#### Run unit tests
 * Run `python manage.py test kitcatapp`
