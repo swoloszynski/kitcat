@@ -14,5 +14,8 @@ class ContactAdmin(admin.ModelAdmin):
                      'classes': ['collapse']}),
     ]
 
+class ConnectionAdmin(admin.ModelAdmin):
+    fields = ['contact', 'is_complete', 'due_date', 'notes']
+
 admin.site.register(Contact, ContactAdmin)
-admin.site.register(Connection)
+admin.site.register(Connection, ConnectionAdmin)
