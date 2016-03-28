@@ -16,7 +16,9 @@ class ContactAdmin(admin.ModelAdmin):
     list_display = ('full_name', 'frequency', 'phone', 'email')
 
 class ConnectionAdmin(admin.ModelAdmin):
-    fields = ['contact', 'is_complete', 'due_date', 'notes']
+    fieldsets = [
+        (None, {'fields': [('contact', 'due_date', 'is_complete'), 'notes']}),
+    ]
     list_display = ('contact', 'status', 'due_date')
 
 admin.site.register(Contact, ContactAdmin)
