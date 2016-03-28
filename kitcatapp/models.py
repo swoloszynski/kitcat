@@ -30,6 +30,11 @@ class Contact(models.Model):
     about = models.TextField(blank=True)
     frequency = models.CharField(max_length=200, choices=FREQUENCY_CHOICES)
 
+    def _get_full_name(self):
+        "Returns first and last name."
+        return '%s %s' % (self.first_name, self.last_name)
+    full_name = property(_get_full_name)
+
     def __str__(self):
         return '%s %s' % (self.first_name, self.last_name)
 

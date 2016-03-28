@@ -6,16 +6,23 @@ from datetime import datetime
 # Models
 class ContactTest(TestCase):
 
-    def test_contact_str(self):
+    def test_str(self):
         contact = Contact(first_name='Marilyn', \
                             last_name='Monroe', \
                             frequency = '180')
         self.assertTrue(isinstance(contact, Contact))
         self.assertEqual(contact.__str__(), 'Marilyn Monroe')
 
+    def test_get_full_name(self):
+        contact = Contact(first_name='Marilyn', \
+                            last_name='Monroe', \
+                            frequency = '180')
+        self.assertTrue(isinstance(contact, Contact))
+        self.assertEqual(contact.full_name, 'Marilyn Monroe')
+
 class ConnectionTest(TestCase):
 
-    def test_connection_str(self):
+    def test_str(self):
         contact = Contact.objects.create(first_name='Marilyn', \
                             last_name='Monroe', \
                             frequency = '180')
