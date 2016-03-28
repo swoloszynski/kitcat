@@ -33,3 +33,17 @@ export KITCAT_DB_PASSWORD=<password>
 * Bring migrations up to date: `python manage.py migrate`
 * Start server: `python manage.py runserver`
 * [View in your browser](http://127.0.0.1:8000/)
+
+#### Testing
+
+## Code coverage
+
+* Generate code coverage report:
+```
+coverage run manage.py test kitcatapp -v 2
+coverage html
+```
+* View results at `htmlcov/index.html`
+
+## Run unit tests
+* Run `python manage.py test kitcatapp`
