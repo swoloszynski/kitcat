@@ -59,3 +59,11 @@ git push heroku master
 heroku run python manage.py migrate --list # Check for unapplied migrations
 heroku run python manage.py migrate kitcatapp # Apply migrations
 ```
+
+## Custom Commands
+
+#### Get connections due on or before today
+* Run `python manage.py get_reminders`
+
+#### Get connectinons due on or before test date
+* Run `python manage.py get_reminders --test`

@@ -1,0 +1,32 @@
+[
+{
+    "fields": {
+        "first_name": "Amy",
+        "last_name": "Schumer",
+        "how_met": "s",
+        "about": "asdf",
+        "phone": "123-1234-23",
+        "frequency": "14",
+        "address": "123 Main st",
+        "email": "test@gmail.com",
+        "date_met": "2016-03-28"
+    },
+    "model": "kitcatapp.contact",
+    "pk": 1
+},
+{
+    "fields": {
+        "first_name": "Tina",
+        "last_name": "Fey",
+        "how_met": "sadf",
+        "about": "",
+        "phone": "",
+        "frequency": "28",
+        "address": "",
+        "email": "",
+        "date_met": "2016-03-28"
+    },
+    "model": "kitcatapp.contact",
+    "pk": 6
+}
+]
