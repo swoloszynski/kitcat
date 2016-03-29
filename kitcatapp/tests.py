@@ -2,6 +2,8 @@ from django.test import TestCase
 from kitcatapp.models import Contact, Connection
 from django.utils import timezone
 import datetime
+from django.core.management import call_command
+from django.utils.six import StringIO
 
 # Models
 class ContactTest(TestCase):
@@ -72,3 +74,18 @@ class ConnectionTest(TestCase):
                                 is_complete=True,
                                 due_date=datetime.date(2016, 3, 26))
         self.assertEqual(connection._get_status(), 'Complete')
+
+# Commands
+class ClosepollTest(TestCase):
+    fixtures = ['contacts', 'connections']
+    def test_command_output(self):
+        # --test flag sets test date to 2016-03-29
+        out = StringIO()
+        call_command('get_reminders', '--test', stdout=out)
+        expected = [
+            'Amy Schumer 2016-03-29 False',
+            'Tina Fey 2016-03-28 False',
+            'Amy Schumer 2016-03-19 False',
+            'Tina Fey 2016-02-29 False',
+        ]
+        self.assertIn('\n'.join(expected), out.getvalue())
