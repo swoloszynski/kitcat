@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime
+from django.utils import timezone
 
 class Contact(models.Model):
     DAILY      = '1'
@@ -42,7 +43,7 @@ class Connection(models.Model):
 
     contact = models.ForeignKey(Contact)
     is_complete = models.BooleanField(default=False)
-    due_date = models.DateTimeField(default=0)
+    due_date = models.DateField(default=timezone.now)
     notes = models.TextField(blank=True)
 
     def _get_status(self):
@@ -56,9 +57,9 @@ class Connection(models.Model):
             return COMPLETE
 
         today = datetime.today()
-        delta = (self.due_date.date() - datetime.today().date()).days
+        delta = (self.due_date - datetime.today().date()).days
 
-        if delta < 0:
+        if delta > 0:
             return SCHEDULED
         elif delta is 0:
             return DUE
@@ -67,4 +68,4 @@ class Connection(models.Model):
     status = property(_get_status)
 
     def __str__(self):
-        return '%s %s %s' % (self.contact.first_name, self.contact.last_name, self.due_date.date())
+        return '%s %s %s' % (self.contact.first_name, self.contact.last_name, self.due_date)
