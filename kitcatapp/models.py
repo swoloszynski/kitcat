@@ -1,5 +1,5 @@
 from django.db import models
-from datetime import datetime
+import datetime
 from django.utils import timezone
 
 class Contact(models.Model):
@@ -56,8 +56,8 @@ class Connection(models.Model):
         if self.is_complete is True:
             return COMPLETE
 
-        today = datetime.today()
-        delta = (self.due_date - datetime.today().date()).days
+        today = datetime.datetime.now().date()
+        delta = (today - self.due_date).days
 
         if delta > 0:
             return SCHEDULED
