@@ -59,7 +59,7 @@ class Connection(models.Model):
         today = datetime.datetime.now().date()
         delta = (today - self.due_date).days
 
-        if delta > 0:
+        if delta < 0:
             return SCHEDULED
         elif delta is 0:
             return DUE

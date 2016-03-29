@@ -41,7 +41,7 @@ class ConnectionTest(TestCase):
         today = datetime.datetime.now().date()
         connection = Connection(contact=contact, \
                                 is_complete=False,
-                                due_date=today - datetime.timedelta(days=1))
+                                due_date=today + datetime.timedelta(days=1))
         self.assertEqual(connection._get_status(), 'Scheduled')
 
     def test_get_status_due(self):
@@ -61,7 +61,7 @@ class ConnectionTest(TestCase):
         today = datetime.datetime.now().date()
         connection = Connection(contact=contact, \
                                 is_complete=False,
-                                due_date=today + datetime.timedelta(days=1))
+                                due_date=today - datetime.timedelta(days=1))
         self.assertEqual(connection._get_status(), 'Overdue')
 
     def test_get_status_complete(self):
