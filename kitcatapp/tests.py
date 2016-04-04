@@ -3,7 +3,6 @@ from kitcatapp.models import Contact, Connection
 from django.utils import timezone
 import datetime
 from django.core.management import call_command
-from django.utils.six import StringIO
 from test.test_support import EnvironmentVarGuard
 import os
 from kitcatapp.src._twilio import Twilio
@@ -94,9 +93,7 @@ class CommandTest(TestCase):
     fixtures = ['contacts', 'connections']
     def test_sms_reminder(self):
         with mock.patch.object(Twilio, 'send_sms'):
-            out = StringIO()
-            call_command('get_reminders', '--test', stdout=out)
-            # --test flag sets test date to 2016-03-29
+            call_command('get_reminders', '-y 2016', '-d 19', '-m 03')
             self.assertTrue(Twilio.send_sms.called, "Failed to send SMS.")
             to_phone = '+17036257313'
             reminder_text = 'Call Amy Schumer!\nReally, call Tina Fey!\n'
