@@ -91,13 +91,23 @@ class CommandTest(TestCase):
         self.env.set('KITCAT_TWILIO_FROM_PHONE', '+15005550006')
 
     fixtures = ['contacts', 'connections']
-    def test_sms_reminder(self):
+    def test_sms_reminder_with_date_including_reminders(self):
         with mock.patch.object(Twilio, 'send_sms'):
             call_command('get_reminders', '-y 2016', '-d 19', '-m 03')
             self.assertTrue(Twilio.send_sms.called, "Failed to send SMS.")
             to_phone = '+17036257313'
             reminder_text = 'Call Amy Schumer!\nReally, call Tina Fey!\n'
             Twilio.send_sms.assert_called_once_with(to_phone, reminder_text)
+
+    def test_sms_reminder_with_date_without_reminders(self):
+        with mock.patch.object(Twilio, 'send_sms'):
+            call_command('get_reminders', '-y 2015', '-d 19', '-m 03')
+            self.assertFalse(Twilio.send_sms.called, "Tried to send empty SMS.")
+
+    def test_sms_reminder_without_date(self):
+        with mock.patch.object(Twilio, 'send_sms'):
+            call_command('get_reminders')
+            self.assertTrue(Twilio.send_sms.called, "Failed to send SMS.")
 
 # Src
 class TwilioTest(TestCase):

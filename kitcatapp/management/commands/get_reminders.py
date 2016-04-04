@@ -37,23 +37,26 @@ class Command(BaseCommand):
         return message
 
     def add_arguments(self, parser):
-        parser.add_argument('-y', '--year', type=int, choices=range(2015, 2025))
-        parser.add_argument('-m', '--month', type=int, choices=range(1, 12))
-        parser.add_argument('-d', '--day', type=int, choices=range(1, 31))
+        today = datetime.datetime.now().date()
+        parser.add_argument('-y', '--year', default=today.year, type=int, choices=range(2015, 2025))
+        parser.add_argument('-m', '--month', default=today.month, type=int, choices=range(1, 12))
+        parser.add_argument('-d', '--day', default=today.day, type=int, choices=range(1, 31))
 
     def handle(self, *args, **options):
         try:
             year = options['year']
             month = options['month']
             day = options['day']
+
             due_date = datetime.date(year,month,day)
+
+            due_message = self._get_due_connections(due_date)
+            overdue_message = self._get_overdue_connections(due_date)
+            message = due_message + overdue_message
+
+            if message:
+                self._send_sms_reminder(due_message + overdue_message)
+
         except ValueError:
             print('No valid date option.')
-            due_date = datetime.datetime.now().date()
-
-        print('Fetching reminders for %s' % str(due_date))
-        due_message = self._get_due_connections(due_date)
-        overdue_message = self._get_overdue_connections(due_date)
-        message = due_message + overdue_message
-        if message is not '':
-            self._send_sms_reminder(due_message + overdue_message)
+            raise
