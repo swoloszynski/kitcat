@@ -20,6 +20,16 @@ ALTER USER kitcat_user CREATEDB;
 export KITCAT_DB_NAME=kitcat_db
 export KITCAT_DB_USER=kitcat_user
 export KITCAT_DB_PASSWORD=<password>
+
+export KITCAT_TWILIO_SID=<sid>
+export KITCAT_TWILIO_AUTH=<auth token>
+export KITCAT_TWILIO_TO_PHONE=<Twilio-registered test phone number>
+export KITCAT_TWILIO_FROM_PHONE=<Twilio-registered test phone number>
+
+export TEST_TWILIO_SID=<test sid>
+export TEST_TWILIO_AUTH=<test auth token>
+export TEST_TWILIO_TO_PHONE=<Twilio-registered test phone number>
+export TEST_TWILIO_FROM_PHONE=+15005550006
 ```
 
 #### Initializing Dev Environment
@@ -62,8 +72,5 @@ heroku run python manage.py migrate kitcatapp # Apply migrations
 
 ## Custom Commands
 
-#### Get connections due on or before today
-* Run `python manage.py get_reminders`
-
-#### Get connectinons due on or before test date
-* Run `python manage.py get_reminders --test`
+#### Get connections due on or before date (default to today)
+* Run `python manage.py get_reminders -y 2016 -d 30 -m 03`
