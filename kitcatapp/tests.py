@@ -4,6 +4,9 @@ from django.utils import timezone
 import datetime
 from django.core.management import call_command
 from django.utils.six import StringIO
+from test.test_support import EnvironmentVarGuard
+import os
+from kitcatapp.src._twilio import Twilio
 
 # Models
 class ContactTest(TestCase):
@@ -76,7 +79,7 @@ class ConnectionTest(TestCase):
         self.assertEqual(connection._get_status(), 'Complete')
 
 # Commands
-class ClosepollTest(TestCase):
+class CommandTest(TestCase):
     fixtures = ['contacts', 'connections']
     def test_command_output(self):
         # --test flag sets test date to 2016-03-29
@@ -89,3 +92,27 @@ class ClosepollTest(TestCase):
             'Tina Fey 2016-02-29 False',
         ]
         self.assertIn('\n'.join(expected), out.getvalue())
+
+# Supporting src
+class TwilioTest(TestCase):
+    def setUp(self):
+        test_accout_sid = os.environ.get('TEST_TWILIO_SID')
+        test_auth_token = os.environ.get('TEST_TWILIO_AUTH')
+
+        self.env = EnvironmentVarGuard()
+        self.env.set('KITCAT_TWILIO_SID', test_accout_sid)
+        self.env.set('KITACT_TWILIO_AUTH', test_auth_token)
+        self.env.set('KITCAT_TWILIO_FROM_PHONE', '+15005550006')
+
+    def test_send_sms(self):
+        with self.env:
+            account_sid = os.environ.get('KITCAT_TWILIO_SID')
+            auth_token = os.environ.get('KITACT_TWILIO_AUTH')
+            from_phone = os.environ.get('KITCAT_TWILIO_FROM_PHONE')
+            twilio = Twilio(account_sid, auth_token, from_phone)
+            to_phone = '+17036257310'
+            test_message = 'Call yo momma!'
+            sms = twilio.send_sms(to_phone, test_message)
+            assert sms.sid is not None
+            assert sms.error_code is None
+            assert sms.error_message is None
