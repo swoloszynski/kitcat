@@ -8,13 +8,6 @@ from kitcatapp.src._twilio import Twilio
 class Command(BaseCommand):
     help = 'Finds due and overdue connections'
 
-    def add_arguments(self, parser):
-        parser.add_argument('--test',
-            action='store_true',
-            dest='test',
-            default=False,
-            help='Run command in test environment')
-
     def _send_sms_reminder(self, reminder_text):
         account_sid = os.environ.get('KITCAT_TWILIO_SID')
         auth_token = os.environ.get('KITCAT_TWILIO_AUTH')
