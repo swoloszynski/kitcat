@@ -6,6 +6,7 @@ from django.core.management import call_command
 from test.test_support import EnvironmentVarGuard
 import os
 from kitcatapp.src._twilio import Twilio
+from kitcatapp.management.commands.get_reminders import Command
 import mock
 import unittest
 
@@ -81,33 +82,23 @@ class ConnectionTest(TestCase):
 
 # Commands
 class CommandTest(TestCase):
-    def setUp(self):
-        test_accout_sid = os.environ.get('TEST_TWILIO_SID')
-        test_auth_token = os.environ.get('TEST_TWILIO_AUTH')
-
-        self.env = EnvironmentVarGuard()
-        self.env.set('KITCAT_TWILIO_SID', test_accout_sid)
-        self.env.set('KITACT_TWILIO_AUTH', test_auth_token)
-        self.env.set('KITCAT_TWILIO_FROM_PHONE', '+15005550006')
-
     fixtures = ['contacts', 'connections']
     def test_sms_reminder_with_date_including_reminders(self):
-        with mock.patch.object(Twilio, 'send_sms'):
+        with mock.patch.object(Command, '_send_sms_reminder'):
             call_command('get_reminders', '-y 2016', '-d 19', '-m 03')
-            self.assertTrue(Twilio.send_sms.called, "Failed to send SMS.")
-            to_phone = '+17036257313'
-            reminder_text = 'Call Amy Schumer!\nReally, call Tina Fey!\n'
-            Twilio.send_sms.assert_called_once_with(to_phone, reminder_text)
+            self.assertTrue(Command._send_sms_reminder.called, "Failed to send SMS.")
+            expected_reminder_text = 'Call Amy Schumer!\nReally, call Tina Fey!\n'
+            Command._send_sms_reminder.assert_called_once_with(expected_reminder_text)
 
     def test_sms_reminder_with_date_without_reminders(self):
-        with mock.patch.object(Twilio, 'send_sms'):
+        with mock.patch.object(Command, '_send_sms_reminder'):
             call_command('get_reminders', '-y 2015', '-d 19', '-m 03')
-            self.assertFalse(Twilio.send_sms.called, "Tried to send empty SMS.")
+            self.assertFalse(Command._send_sms_reminder.called, "Tried to send empty SMS.")
 
     def test_sms_reminder_without_date(self):
-        with mock.patch.object(Twilio, 'send_sms'):
+        with mock.patch.object(Command, '_send_sms_reminder'):
             call_command('get_reminders')
-            self.assertTrue(Twilio.send_sms.called, "Failed to send SMS.")
+            self.assertTrue(Command._send_sms_reminder.called, "Failed to send SMS.")
 
 # Src
 class TwilioTest(TestCase):
