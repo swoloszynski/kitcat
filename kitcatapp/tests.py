@@ -1,5 +1,6 @@
 from django.test import TestCase
-from kitcatapp.models import Contact, Connection
+from kitcatapp.models import Contact, Connection, Profile
+from django.contrib.auth.models import User
 from django.utils import timezone
 import datetime
 from django.core.management import call_command
@@ -79,6 +80,31 @@ class ConnectionTest(TestCase):
                                 is_complete=True,
                                 due_date=datetime.date(2016, 3, 26))
         self.assertEqual(connection._get_status(), 'Complete')
+
+class ProfileTest(TestCase):
+    def test_str_username_only(self):
+        user1 = User.objects.create(username='user1', first_name='', last_name='')
+        profile = Profile.objects.create(user=user1)
+        self.assertTrue(isinstance(profile, Profile))
+        self.assertEqual(profile.__str__(), 'user1')
+
+    def test_str_first_name_only(self):
+        user1 = User.objects.create(username='user1', first_name='First', last_name='')
+        profile = Profile.objects.create(user=user1)
+        self.assertTrue(isinstance(profile, Profile))
+        self.assertEqual(profile.__str__(), 'First (user1)')
+
+    def test_str_last_name_only(self):
+        user1 = User.objects.create(username='user1', first_name='', last_name='Last')
+        profile = Profile.objects.create(user=user1)
+        self.assertTrue(isinstance(profile, Profile))
+        self.assertEqual(profile.__str__(), 'Last (user1)')
+
+    def test_str_full_name_only(self):
+        user1 = User.objects.create(username='user1', first_name='First', last_name='Last')
+        profile = Profile.objects.create(user=user1)
+        self.assertTrue(isinstance(profile, Profile))
+        self.assertEqual(profile.__str__(), 'First Last (user1)')
 
 # Commands
 class CommandTest(TestCase):

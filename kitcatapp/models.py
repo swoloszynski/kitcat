@@ -1,6 +1,21 @@
 from django.db import models
 import datetime
 from django.utils import timezone
+from django.contrib.auth.models import User
+from django.core.validators import RegexValidator
+
+class Profile(models.Model):
+    user = models.OneToOneField(User)
+    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
+    phone_number = models.CharField(validators=[phone_regex], blank=True, max_length=15) # validators should be a list
+
+    def __str__(self):
+        full_name = self.user.first_name + ' ' + self.user.last_name
+        full_name = full_name.strip()
+        if not full_name:
+            return self.user.username
+        else:
+            return '%s (%s)' % (full_name, self.user.username)
 
 class Contact(models.Model):
     DAILY      = '1'
@@ -30,6 +45,7 @@ class Contact(models.Model):
     how_met = models.CharField(max_length=400, blank=True)
     about = models.TextField(blank=True)
     frequency = models.CharField(max_length=200, choices=FREQUENCY_CHOICES)
+    # user = models.ForeignKey(User)
 
     def _get_full_name(self):
         "Returns first and last name."

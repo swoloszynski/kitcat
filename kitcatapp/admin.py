@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import Contact, Connection
+from .models import Profile
 
 class ConnectionInline(admin.TabularInline):
     model = Connection
@@ -21,5 +22,6 @@ class ConnectionAdmin(admin.ModelAdmin):
     ]
     list_display = ('contact', 'status', 'due_date')
 
+admin.site.register(Profile)
 admin.site.register(Contact, ContactAdmin)
 admin.site.register(Connection, ConnectionAdmin)
