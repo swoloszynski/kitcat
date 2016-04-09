@@ -54,7 +54,7 @@ export TEST_TWILIO_FROM_PHONE=+15005550006
 
 * Generate code coverage report:
 ```
-coverage run manage.py test kitcatapp -v 2
+coverage run --source kitcatapp manage.py test -v 2
 coverage html
 ```
 * View results at `htmlcov/index.html`
