@@ -10,7 +10,8 @@ class ContactAdmin(admin.ModelAdmin):
     inlines = [ConnectionInline]
     fieldsets = [
         (None, {'fields': [('first_name', 'last_name', 'frequency'),
-                           ('phone', 'email', 'address')]}),
+                           ('phone', 'email', 'address'),
+                           ('user')]}),
         ('History', {'fields': [('date_met', 'how_met'), 'about'],
                      'classes': ['collapse']}),
     ]

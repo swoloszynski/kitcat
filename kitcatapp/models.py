@@ -45,7 +45,7 @@ class Contact(models.Model):
     how_met = models.CharField(max_length=400, blank=True)
     about = models.TextField(blank=True)
     frequency = models.CharField(max_length=200, choices=FREQUENCY_CHOICES)
-    # user = models.ForeignKey(User)
+    user = models.ForeignKey(User)
 
     def _get_full_name(self):
         "Returns first and last name."
