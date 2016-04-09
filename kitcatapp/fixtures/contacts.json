@@ -7,6 +7,7 @@
         "about": "asdf",
         "phone": "123-1234-23",
         "frequency": "14",
+        "user": 1,
         "address": "123 Main st",
         "email": "test@gmail.com",
         "date_met": "2016-03-28"
@@ -22,6 +23,7 @@
         "about": "",
         "phone": "",
         "frequency": "28",
+        "user": 1,
         "address": "",
         "email": "",
         "date_met": "2016-03-28"

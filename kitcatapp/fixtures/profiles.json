@@ -1,0 +1,26 @@
+[
+{
+    "fields": {
+        "phone_number": "+17036257313",
+        "user": 1
+    },
+    "model": "kitcatapp.profile",
+    "pk": 1
+},
+{
+    "fields": {
+        "phone_number": "+1234568790",
+        "user": 2
+    },
+    "model": "kitcatapp.profile",
+    "pk": 2
+},
+{
+    "fields": {
+        "phone_number": "+123234234",
+        "user": 3
+    },
+    "model": "kitcatapp.profile",
+    "pk": 3
+}
+]

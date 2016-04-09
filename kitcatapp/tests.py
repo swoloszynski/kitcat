@@ -15,37 +15,37 @@ import unittest
 class ContactTest(TestCase):
 
     def test_str(self):
+        user1 = User.objects.create(username='user1')
         contact = Contact(first_name='Marilyn', \
                             last_name='Monroe', \
-                            frequency = '180')
+                            frequency = '180', \
+                            user=user1)
         self.assertTrue(isinstance(contact, Contact))
         self.assertEqual(contact.__str__(), 'Marilyn Monroe')
 
     def test_get_full_name(self):
+        user1 = User.objects.create(username='user1')
         contact = Contact(first_name='Marilyn', \
                             last_name='Monroe', \
-                            frequency = '180')
+                            frequency = '180', \
+                            user=user1)
         self.assertTrue(isinstance(contact, Contact))
         self.assertEqual(contact.full_name, 'Marilyn Monroe')
 
 class ConnectionTest(TestCase):
+    fixtures = ['users', 'contacts']
 
     def test_str(self):
-        contact = Contact.objects.create(first_name='Marilyn', \
-                            last_name='Monroe', \
-                            frequency = '180')
-
+        contact = Contact.objects.get(first_name='Amy')
         connection = Connection(contact=contact, \
                                 is_complete=False,
                                 due_date=datetime.date(2016, 3, 26))
 
         self.assertTrue(isinstance(connection, Connection))
-        self.assertEqual(connection.__str__(), 'Marilyn Monroe 2016-03-26')
+        self.assertEqual(connection.__str__(), 'Amy Schumer 2016-03-26')
 
     def test_get_status_scheduled(self):
-        contact = Contact.objects.create(first_name='Marilyn', \
-                            last_name='Monroe', \
-                            frequency = '180')
+        contact = Contact.objects.get(first_name='Amy')
         today = datetime.datetime.now().date()
         connection = Connection(contact=contact, \
                                 is_complete=False,
@@ -53,9 +53,7 @@ class ConnectionTest(TestCase):
         self.assertEqual(connection._get_status(), 'Scheduled')
 
     def test_get_status_due(self):
-        contact = Contact.objects.create(first_name='Marilyn', \
-                            last_name='Monroe', \
-                            frequency = '180')
+        contact = Contact.objects.get(first_name='Amy')
         today = datetime.datetime.now().date()
         connection = Connection(contact=contact, \
                                 is_complete=False,
@@ -63,9 +61,7 @@ class ConnectionTest(TestCase):
         self.assertEqual(connection._get_status(), 'Due')
 
     def test_get_status_overdue(self):
-        contact = Contact.objects.create(first_name='Marilyn', \
-                            last_name='Monroe', \
-                            frequency = '180')
+        contact = Contact.objects.get(first_name='Amy')
         today = datetime.datetime.now().date()
         connection = Connection(contact=contact, \
                                 is_complete=False,
@@ -73,9 +69,7 @@ class ConnectionTest(TestCase):
         self.assertEqual(connection._get_status(), 'Overdue')
 
     def test_get_status_complete(self):
-        contact = Contact.objects.create(first_name='Marilyn', \
-                            last_name='Monroe', \
-                            frequency = '180')
+        contact = Contact.objects.get(first_name='Amy')
         connection = Connection(contact=contact, \
                                 is_complete=True,
                                 due_date=datetime.date(2016, 3, 26))
@@ -108,7 +102,7 @@ class ProfileTest(TestCase):
 
 # Commands
 class CommandTest(TestCase):
-    fixtures = ['contacts', 'connections']
+    fixtures = ['users', 'contacts', 'connections']
     def test_date_ok_send_sms_reminder_for_due_connections(self):
         with mock.patch.object(Command, '_send_sms_reminder'):
             call_command('get_reminders', '-y 2016', '-d 19', '-m 03')
