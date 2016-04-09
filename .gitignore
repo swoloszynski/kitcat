@@ -4,5 +4,6 @@ env/
 *.pyc
 __pycache__
 staticfiles
+htmlcov/env_lib_python2_7*
+htmlcov/manage_py.html
 .coverage
-htmlcov/

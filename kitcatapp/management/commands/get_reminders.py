@@ -8,7 +8,7 @@ from kitcatapp.src._twilio import Twilio
 class Command(BaseCommand):
     help = 'Finds due and overdue connections'
 
-    def _send_sms_reminder(self, reminder_text):
+    def _send_sms_reminder(self, reminder_text):  # pragma: no cover
         account_sid = os.environ.get('KITCAT_TWILIO_SID')
         auth_token = os.environ.get('KITCAT_TWILIO_AUTH')
         from_phone = os.environ.get('KITCAT_TWILIO_FROM_PHONE')
@@ -38,9 +38,9 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         today = datetime.datetime.now().date()
-        parser.add_argument('-y', '--year', default=today.year, type=int, choices=range(2015, 2025))
-        parser.add_argument('-m', '--month', default=today.month, type=int, choices=range(1, 12))
-        parser.add_argument('-d', '--day', default=today.day, type=int, choices=range(1, 31))
+        parser.add_argument('-y', '--year', default=today.year, type=int, choices=range(2015, 2100))
+        parser.add_argument('-m', '--month', default=today.month, type=int, choices=range(1, 13))
+        parser.add_argument('-d', '--day', default=today.day, type=int, choices=range(1, 32))
 
     def handle(self, *args, **options):
         try:
@@ -57,6 +57,5 @@ class Command(BaseCommand):
             if message:
                 self._send_sms_reminder(due_message + overdue_message)
 
-        except ValueError:
+        except ValueError:  # pragma: no cover
             print('No valid date option.')
-            raise
