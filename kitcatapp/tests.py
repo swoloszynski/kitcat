@@ -87,7 +87,15 @@ class CommandTest(TestCase):
         with mock.patch.object(Command, '_send_sms_reminder'):
             call_command('get_reminders', '-y 2016', '-d 19', '-m 03')
             self.assertTrue(Command._send_sms_reminder.called, "Failed to send SMS.")
-            expected_reminder_text = 'Call Amy Schumer!\nReally, call Tina Fey!\n'
+            expected_reminder_text = 'Call Amy Schumer!\n'
+            Command._send_sms_reminder.assert_called_once_with(expected_reminder_text)
+
+    def test_date_ok_send_sms_reminder_for_overdue_connections(self):
+        with mock.patch.object(Command, '_send_sms_reminder'):
+            call_command('get_reminders', '-y 2016', '-d 20', '-m 03')
+            self.assertTrue(Command._send_sms_reminder.called, "Failed to send SMS.")
+            expected_reminder_text = 'Really, call Amy Schumer!\n'
+            Command._send_sms_reminder.assert_called_once_with(expected_reminder_text)
 
     def test_date_ok_dont_send_sms_reminder_if_no_connections(self):
         with mock.patch.object(Command, '_send_sms_reminder'):
