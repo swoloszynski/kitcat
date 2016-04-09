@@ -18,7 +18,8 @@ class Command(BaseCommand):
         twilio.send_sms(to_phone, reminder_text)
 
     def _get_due_connections(self, due_date):
-        due_connections = Connection.objects.filter(due_date=due_date)
+        due_connections = Connection.objects.filter(due_date=due_date) \
+            .filter(is_complete=False)
         message = ''
         for connection in due_connections:
             message += "Call %s %s!\n" % (connection.contact.first_name,
@@ -28,8 +29,9 @@ class Command(BaseCommand):
     def _get_overdue_connections(self, due_date):
         yesterday = due_date - datetime.timedelta(days=1)
         start_date = datetime.date(1000, 1, 1)
-        overdue_connections = Connection.objects.filter(due_date__range=(
-            start_date, yesterday)).order_by('-due_date')
+        overdue_connections = Connection.objects \
+            .filter(due_date__range=(start_date, yesterday)) \
+            .order_by('-due_date').filter(is_complete=False)
         message = ''
         for connection in overdue_connections:
             message += "Really, call %s %s!\n" % (connection.contact.first_name,

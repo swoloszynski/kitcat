@@ -41,10 +41,10 @@
 },
 {
     "fields": {
-        "due_date": "2016-02-29",
+        "due_date": "2016-02-27",
         "notes": "",
         "contact": 6,
-        "is_complete": "False"
+        "is_complete": "True"
     },
     "model": "kitcatapp.connection",
     "pk": 5
