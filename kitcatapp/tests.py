@@ -83,19 +83,43 @@ class ConnectionTest(TestCase):
 # Commands
 class CommandTest(TestCase):
     fixtures = ['contacts', 'connections']
-    def test_sms_reminder_with_date_including_reminders(self):
+    def test_date_ok_send_sms_reminder_for_due_connections(self):
         with mock.patch.object(Command, '_send_sms_reminder'):
             call_command('get_reminders', '-y 2016', '-d 19', '-m 03')
             self.assertTrue(Command._send_sms_reminder.called, "Failed to send SMS.")
-            expected_reminder_text = 'Call Amy Schumer!\nReally, call Tina Fey!\n'
+            expected_reminder_text = 'Call Amy Schumer!\n'
             Command._send_sms_reminder.assert_called_once_with(expected_reminder_text)
 
-    def test_sms_reminder_with_date_without_reminders(self):
+    def test_date_ok_send_sms_reminder_for_overdue_connections(self):
+        with mock.patch.object(Command, '_send_sms_reminder'):
+            call_command('get_reminders', '-y 2016', '-d 20', '-m 03')
+            self.assertTrue(Command._send_sms_reminder.called, "Failed to send SMS.")
+            expected_reminder_text = 'Really, call Amy Schumer!\n'
+            Command._send_sms_reminder.assert_called_once_with(expected_reminder_text)
+
+    def test_date_ok_send_sms_reminder_for_due_and_overdue_connections(self):
+        with mock.patch.object(Command, '_send_sms_reminder'):
+            call_command('get_reminders', '-y 2016', '-d 21', '-m 03')
+            self.assertTrue(Command._send_sms_reminder.called, "Failed to send SMS.")
+            expected_reminder_text = 'Call Tina Fey!\nReally, call Amy Schumer!\n'
+            Command._send_sms_reminder.assert_called_once_with(expected_reminder_text)
+
+    def test_date_ok_dont_send_sms_reminder_if_no_connections(self):
         with mock.patch.object(Command, '_send_sms_reminder'):
             call_command('get_reminders', '-y 2015', '-d 19', '-m 03')
             self.assertFalse(Command._send_sms_reminder.called, "Tried to send empty SMS.")
 
-    def test_sms_reminder_without_date(self):
+    def test_date_ok_dont_send_sms_reminder_if_only_complete_due_connections(self):
+        with mock.patch.object(Command, '_send_sms_reminder'):
+            call_command('get_reminders', '-y 2016', '-d 27', '-m 02')
+            self.assertFalse(Command._send_sms_reminder.called, "Tried to send empty SMS.")
+
+    def test_date_ok_dont_send_sms_reminder_if_only_complete_overdue_connections(self):
+        with mock.patch.object(Command, '_send_sms_reminder'):
+            call_command('get_reminders', '-y 2016', '-d 28', '-m 02')
+            self.assertFalse(Command._send_sms_reminder.called, "Tried to send empty SMS.")
+
+    def test_bad_date_dont_send_sms_reminder(self):
         with mock.patch.object(Command, '_send_sms_reminder'):
             call_command('get_reminders')
             self.assertTrue(Command._send_sms_reminder.called, "Failed to send SMS.")
