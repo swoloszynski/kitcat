@@ -48,5 +48,15 @@
     },
     "model": "kitcatapp.connection",
     "pk": 5
+},
+{
+    "fields": {
+        "due_date": "2016-03-21",
+        "notes": "",
+        "contact": 6,
+        "is_complete": "False"
+    },
+    "model": "kitcatapp.connection",
+    "pk": 6
 }
 ]
