@@ -8,7 +8,7 @@
     
     
     <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
-    <title>Coverage for kitcatapp/management/commands/get_reminders.py: 81%</title>
+    <title>Coverage for kitcatapp/management/commands/get_reminders.py: 100%</title>
     <link rel="stylesheet" href="style.css" type="text/css">
     
     <script type="text/javascript" src="jquery.min.js"></script>
@@ -24,16 +24,16 @@
 <div id="header">
     <div class="content">
         <h1>Coverage for <b>kitcatapp/management/commands/get_reminders.py</b> :
-            <span class="pc_cov">81%</span>
+            <span class="pc_cov">100%</span>
         </h1>
 
         <img id="keyboard_icon" src="keybd_closed.png" alt="Show keyboard shortcuts" />
 
         <h2 class="stats">
-            48 statements &nbsp;
-            <span class="run hide_run shortkey_r button_toggle_run">39 run</span>
-            <span class="mis shortkey_m button_toggle_mis">9 missing</span>
-            <span class="exc shortkey_x button_toggle_exc">0 excluded</span>
+            38 statements &nbsp;
+            <span class="run hide_run shortkey_r button_toggle_run">38 run</span>
+            <span class="mis shortkey_m button_toggle_mis">0 missing</span>
+            <span class="exc shortkey_x button_toggle_exc">9 excluded</span>
 
             
         </h2>
@@ -77,14 +77,14 @@
 <p id="n8" class="stm run hide_run"><a href="#n8">8</a></p>
 <p id="n9" class="stm run hide_run"><a href="#n9">9</a></p>
 <p id="n10" class="pln"><a href="#n10">10</a></p>
-<p id="n11" class="stm run hide_run"><a href="#n11">11</a></p>
-<p id="n12" class="stm mis"><a href="#n12">12</a></p>
-<p id="n13" class="stm mis"><a href="#n13">13</a></p>
-<p id="n14" class="stm mis"><a href="#n14">14</a></p>
-<p id="n15" class="stm mis"><a href="#n15">15</a></p>
+<p id="n11" class="exc"><a href="#n11">11</a></p>
+<p id="n12" class="exc"><a href="#n12">12</a></p>
+<p id="n13" class="exc"><a href="#n13">13</a></p>
+<p id="n14" class="exc"><a href="#n14">14</a></p>
+<p id="n15" class="exc"><a href="#n15">15</a></p>
 <p id="n16" class="pln"><a href="#n16">16</a></p>
-<p id="n17" class="stm mis"><a href="#n17">17</a></p>
-<p id="n18" class="stm mis"><a href="#n18">18</a></p>
+<p id="n17" class="exc"><a href="#n17">17</a></p>
+<p id="n18" class="exc"><a href="#n18">18</a></p>
 <p id="n19" class="pln"><a href="#n19">19</a></p>
 <p id="n20" class="stm run hide_run"><a href="#n20">20</a></p>
 <p id="n21" class="stm run hide_run"><a href="#n21">21</a></p>
@@ -126,9 +126,8 @@
 <p id="n57" class="stm run hide_run"><a href="#n57">57</a></p>
 <p id="n58" class="stm run hide_run"><a href="#n58">58</a></p>
 <p id="n59" class="pln"><a href="#n59">59</a></p>
-<p id="n60" class="stm mis"><a href="#n60">60</a></p>
-<p id="n61" class="stm mis"><a href="#n61">61</a></p>
-<p id="n62" class="stm mis"><a href="#n62">62</a></p>
+<p id="n60" class="exc"><a href="#n60">60</a></p>
+<p id="n61" class="exc"><a href="#n61">61</a></p>
                 
             </td>
             <td class="text">
@@ -142,14 +141,14 @@
 <p id="t8" class="stm run hide_run"><span class="key">class</span> <span class="nam">Command</span><span class="op">(</span><span class="nam">BaseCommand</span><span class="op">)</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
 <p id="t9" class="stm run hide_run">&nbsp; &nbsp; <span class="nam">help</span> <span class="op">=</span> <span class="str">&#39;Finds due and overdue connections&#39;</span><span class="strut">&nbsp;</span></p>
 <p id="t10" class="pln"><span class="strut">&nbsp;</span></p>
-<p id="t11" class="stm run hide_run">&nbsp; &nbsp; <span class="key">def</span> <span class="nam">_send_sms_reminder</span><span class="op">(</span><span class="nam">self</span><span class="op">,</span> <span class="nam">reminder_text</span><span class="op">)</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
-<p id="t12" class="stm mis">&nbsp; &nbsp; &nbsp; &nbsp; <span class="nam">account_sid</span> <span class="op">=</span> <span class="nam">os</span><span class="op">.</span><span class="nam">environ</span><span class="op">.</span><span class="nam">get</span><span class="op">(</span><span class="str">&#39;KITCAT_TWILIO_SID&#39;</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
-<p id="t13" class="stm mis">&nbsp; &nbsp; &nbsp; &nbsp; <span class="nam">auth_token</span> <span class="op">=</span> <span class="nam">os</span><span class="op">.</span><span class="nam">environ</span><span class="op">.</span><span class="nam">get</span><span class="op">(</span><span class="str">&#39;KITCAT_TWILIO_AUTH&#39;</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
-<p id="t14" class="stm mis">&nbsp; &nbsp; &nbsp; &nbsp; <span class="nam">from_phone</span> <span class="op">=</span> <span class="nam">os</span><span class="op">.</span><span class="nam">environ</span><span class="op">.</span><span class="nam">get</span><span class="op">(</span><span class="str">&#39;KITCAT_TWILIO_FROM_PHONE&#39;</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
-<p id="t15" class="stm mis">&nbsp; &nbsp; &nbsp; &nbsp; <span class="nam">twilio</span> <span class="op">=</span> <span class="nam">Twilio</span><span class="op">(</span><span class="nam">account_sid</span><span class="op">,</span> <span class="nam">auth_token</span><span class="op">,</span> <span class="nam">from_phone</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t11" class="exc">&nbsp; &nbsp; <span class="key">def</span> <span class="nam">_send_sms_reminder</span><span class="op">(</span><span class="nam">self</span><span class="op">,</span> <span class="nam">reminder_text</span><span class="op">)</span><span class="op">:</span>&nbsp; <span class="com"># pragma: no cover</span><span class="strut">&nbsp;</span></p>
+<p id="t12" class="exc">&nbsp; &nbsp; &nbsp; &nbsp; <span class="nam">account_sid</span> <span class="op">=</span> <span class="nam">os</span><span class="op">.</span><span class="nam">environ</span><span class="op">.</span><span class="nam">get</span><span class="op">(</span><span class="str">&#39;KITCAT_TWILIO_SID&#39;</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t13" class="exc">&nbsp; &nbsp; &nbsp; &nbsp; <span class="nam">auth_token</span> <span class="op">=</span> <span class="nam">os</span><span class="op">.</span><span class="nam">environ</span><span class="op">.</span><span class="nam">get</span><span class="op">(</span><span class="str">&#39;KITCAT_TWILIO_AUTH&#39;</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t14" class="exc">&nbsp; &nbsp; &nbsp; &nbsp; <span class="nam">from_phone</span> <span class="op">=</span> <span class="nam">os</span><span class="op">.</span><span class="nam">environ</span><span class="op">.</span><span class="nam">get</span><span class="op">(</span><span class="str">&#39;KITCAT_TWILIO_FROM_PHONE&#39;</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t15" class="exc">&nbsp; &nbsp; &nbsp; &nbsp; <span class="nam">twilio</span> <span class="op">=</span> <span class="nam">Twilio</span><span class="op">(</span><span class="nam">account_sid</span><span class="op">,</span> <span class="nam">auth_token</span><span class="op">,</span> <span class="nam">from_phone</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
 <p id="t16" class="pln"><span class="strut">&nbsp;</span></p>
-<p id="t17" class="stm mis">&nbsp; &nbsp; &nbsp; &nbsp; <span class="nam">to_phone</span> <span class="op">=</span> <span class="nam">os</span><span class="op">.</span><span class="nam">environ</span><span class="op">.</span><span class="nam">get</span><span class="op">(</span><span class="str">&#39;KITCAT_TWILIO_TO_PHONE&#39;</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
-<p id="t18" class="stm mis">&nbsp; &nbsp; &nbsp; &nbsp; <span class="nam">twilio</span><span class="op">.</span><span class="nam">send_sms</span><span class="op">(</span><span class="nam">to_phone</span><span class="op">,</span> <span class="nam">reminder_text</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t17" class="exc">&nbsp; &nbsp; &nbsp; &nbsp; <span class="nam">to_phone</span> <span class="op">=</span> <span class="nam">os</span><span class="op">.</span><span class="nam">environ</span><span class="op">.</span><span class="nam">get</span><span class="op">(</span><span class="str">&#39;KITCAT_TWILIO_TO_PHONE&#39;</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t18" class="exc">&nbsp; &nbsp; &nbsp; &nbsp; <span class="nam">twilio</span><span class="op">.</span><span class="nam">send_sms</span><span class="op">(</span><span class="nam">to_phone</span><span class="op">,</span> <span class="nam">reminder_text</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
 <p id="t19" class="pln"><span class="strut">&nbsp;</span></p>
 <p id="t20" class="stm run hide_run">&nbsp; &nbsp; <span class="key">def</span> <span class="nam">_get_due_connections</span><span class="op">(</span><span class="nam">self</span><span class="op">,</span> <span class="nam">due_date</span><span class="op">)</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
 <p id="t21" class="stm run hide_run">&nbsp; &nbsp; &nbsp; &nbsp; <span class="nam">due_connections</span> <span class="op">=</span> <span class="nam">Connection</span><span class="op">.</span><span class="nam">objects</span><span class="op">.</span><span class="nam">filter</span><span class="op">(</span><span class="nam">due_date</span><span class="op">=</span><span class="nam">due_date</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
@@ -172,9 +171,9 @@
 <p id="t38" class="pln"><span class="strut">&nbsp;</span></p>
 <p id="t39" class="stm run hide_run">&nbsp; &nbsp; <span class="key">def</span> <span class="nam">add_arguments</span><span class="op">(</span><span class="nam">self</span><span class="op">,</span> <span class="nam">parser</span><span class="op">)</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
 <p id="t40" class="stm run hide_run">&nbsp; &nbsp; &nbsp; &nbsp; <span class="nam">today</span> <span class="op">=</span> <span class="nam">datetime</span><span class="op">.</span><span class="nam">datetime</span><span class="op">.</span><span class="nam">now</span><span class="op">(</span><span class="op">)</span><span class="op">.</span><span class="nam">date</span><span class="op">(</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
-<p id="t41" class="stm run hide_run">&nbsp; &nbsp; &nbsp; &nbsp; <span class="nam">parser</span><span class="op">.</span><span class="nam">add_argument</span><span class="op">(</span><span class="str">&#39;-y&#39;</span><span class="op">,</span> <span class="str">&#39;--year&#39;</span><span class="op">,</span> <span class="nam">default</span><span class="op">=</span><span class="nam">today</span><span class="op">.</span><span class="nam">year</span><span class="op">,</span> <span class="nam">type</span><span class="op">=</span><span class="nam">int</span><span class="op">,</span> <span class="nam">choices</span><span class="op">=</span><span class="nam">range</span><span class="op">(</span><span class="num">2015</span><span class="op">,</span> <span class="num">2025</span><span class="op">)</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
-<p id="t42" class="stm run hide_run">&nbsp; &nbsp; &nbsp; &nbsp; <span class="nam">parser</span><span class="op">.</span><span class="nam">add_argument</span><span class="op">(</span><span class="str">&#39;-m&#39;</span><span class="op">,</span> <span class="str">&#39;--month&#39;</span><span class="op">,</span> <span class="nam">default</span><span class="op">=</span><span class="nam">today</span><span class="op">.</span><span class="nam">month</span><span class="op">,</span> <span class="nam">type</span><span class="op">=</span><span class="nam">int</span><span class="op">,</span> <span class="nam">choices</span><span class="op">=</span><span class="nam">range</span><span class="op">(</span><span class="num">1</span><span class="op">,</span> <span class="num">12</span><span class="op">)</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
-<p id="t43" class="stm run hide_run">&nbsp; &nbsp; &nbsp; &nbsp; <span class="nam">parser</span><span class="op">.</span><span class="nam">add_argument</span><span class="op">(</span><span class="str">&#39;-d&#39;</span><span class="op">,</span> <span class="str">&#39;--day&#39;</span><span class="op">,</span> <span class="nam">default</span><span class="op">=</span><span class="nam">today</span><span class="op">.</span><span class="nam">day</span><span class="op">,</span> <span class="nam">type</span><span class="op">=</span><span class="nam">int</span><span class="op">,</span> <span class="nam">choices</span><span class="op">=</span><span class="nam">range</span><span class="op">(</span><span class="num">1</span><span class="op">,</span> <span class="num">31</span><span class="op">)</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t41" class="stm run hide_run">&nbsp; &nbsp; &nbsp; &nbsp; <span class="nam">parser</span><span class="op">.</span><span class="nam">add_argument</span><span class="op">(</span><span class="str">&#39;-y&#39;</span><span class="op">,</span> <span class="str">&#39;--year&#39;</span><span class="op">,</span> <span class="nam">default</span><span class="op">=</span><span class="nam">today</span><span class="op">.</span><span class="nam">year</span><span class="op">,</span> <span class="nam">type</span><span class="op">=</span><span class="nam">int</span><span class="op">,</span> <span class="nam">choices</span><span class="op">=</span><span class="nam">range</span><span class="op">(</span><span class="num">2015</span><span class="op">,</span> <span class="num">2100</span><span class="op">)</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t42" class="stm run hide_run">&nbsp; &nbsp; &nbsp; &nbsp; <span class="nam">parser</span><span class="op">.</span><span class="nam">add_argument</span><span class="op">(</span><span class="str">&#39;-m&#39;</span><span class="op">,</span> <span class="str">&#39;--month&#39;</span><span class="op">,</span> <span class="nam">default</span><span class="op">=</span><span class="nam">today</span><span class="op">.</span><span class="nam">month</span><span class="op">,</span> <span class="nam">type</span><span class="op">=</span><span class="nam">int</span><span class="op">,</span> <span class="nam">choices</span><span class="op">=</span><span class="nam">range</span><span class="op">(</span><span class="num">1</span><span class="op">,</span> <span class="num">13</span><span class="op">)</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t43" class="stm run hide_run">&nbsp; &nbsp; &nbsp; &nbsp; <span class="nam">parser</span><span class="op">.</span><span class="nam">add_argument</span><span class="op">(</span><span class="str">&#39;-d&#39;</span><span class="op">,</span> <span class="str">&#39;--day&#39;</span><span class="op">,</span> <span class="nam">default</span><span class="op">=</span><span class="nam">today</span><span class="op">.</span><span class="nam">day</span><span class="op">,</span> <span class="nam">type</span><span class="op">=</span><span class="nam">int</span><span class="op">,</span> <span class="nam">choices</span><span class="op">=</span><span class="nam">range</span><span class="op">(</span><span class="num">1</span><span class="op">,</span> <span class="num">32</span><span class="op">)</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
 <p id="t44" class="pln"><span class="strut">&nbsp;</span></p>
 <p id="t45" class="stm run hide_run">&nbsp; &nbsp; <span class="key">def</span> <span class="nam">handle</span><span class="op">(</span><span class="nam">self</span><span class="op">,</span> <span class="op">*</span><span class="nam">args</span><span class="op">,</span> <span class="op">**</span><span class="nam">options</span><span class="op">)</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
 <p id="t46" class="stm run hide_run">&nbsp; &nbsp; &nbsp; &nbsp; <span class="key">try</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
@@ -191,9 +190,8 @@
 <p id="t57" class="stm run hide_run">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="key">if</span> <span class="nam">message</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
 <p id="t58" class="stm run hide_run">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="nam">self</span><span class="op">.</span><span class="nam">_send_sms_reminder</span><span class="op">(</span><span class="nam">due_message</span> <span class="op">+</span> <span class="nam">overdue_message</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
 <p id="t59" class="pln"><span class="strut">&nbsp;</span></p>
-<p id="t60" class="stm mis">&nbsp; &nbsp; &nbsp; &nbsp; <span class="key">except</span> <span class="nam">ValueError</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
-<p id="t61" class="stm mis">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="key">print</span><span class="op">(</span><span class="str">&#39;No valid date option.&#39;</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
-<p id="t62" class="stm mis">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="key">raise</span><span class="strut">&nbsp;</span></p>
+<p id="t60" class="exc">&nbsp; &nbsp; &nbsp; &nbsp; <span class="key">except</span> <span class="nam">ValueError</span><span class="op">:</span>&nbsp; <span class="com"># pragma: no cover</span><span class="strut">&nbsp;</span></p>
+<p id="t61" class="exc">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="key">print</span><span class="op">(</span><span class="str">&#39;No valid date option.&#39;</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
                 
             </td>
         </tr>
@@ -204,7 +202,7 @@
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.org">coverage.py v4.0.3</a>,
-            created at 2016-04-07 22:56
+            created at 2016-04-09 14:38
         </p>
     </div>
 </div>
