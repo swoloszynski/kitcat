@@ -22,5 +22,13 @@
     },
     "model": "kitcatapp.profile",
     "pk": 3
+},
+{
+    "fields": {
+        "phone_number": "",
+        "user": 4
+    },
+    "model": "kitcatapp.profile",
+    "pk": 4
 }
 ]

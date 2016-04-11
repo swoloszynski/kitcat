@@ -58,5 +58,25 @@
     },
     "model": "kitcatapp.connection",
     "pk": 6
+},
+{
+    "fields": {
+        "due_date": "2016-04-21",
+        "notes": "",
+        "contact": 2,
+        "is_complete": "False"
+    },
+    "model": "kitcatapp.connection",
+    "pk": 7
+},
+{
+    "fields": {
+        "due_date": "2016-04-21",
+        "notes": "",
+        "contact": 1,
+        "is_complete": "False"
+    },
+    "model": "kitcatapp.connection",
+    "pk": 8
 }
 ]

@@ -52,5 +52,41 @@
     },
     "model": "auth.user",
     "pk": 3
+},
+{
+    "fields": {
+        "username": "nonumber",
+        "first_name": "Test",
+        "last_name": "Person3",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "last_login": null,
+        "groups": [],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$20000$7ZHXnXWadWGB$x8Gp9qCL1JRTGCwb5gdsb/iPmj+Fvz45aDhYNa/oyUc=",
+        "email": "",
+        "date_joined": "2016-04-09T21:25:46Z"
+    },
+    "model": "auth.user",
+    "pk": 4
+},
+{
+    "fields": {
+        "username": "noprofile",
+        "first_name": "Test",
+        "last_name": "Person4",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "last_login": null,
+        "groups": [],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$20000$7ZHXnXWadWGB$x8Gp9qCL1JRTGCwb5gdsb/iPmj+Fvz45aDhYNa/oyUc=",
+        "email": "",
+        "date_joined": "2016-04-09T21:25:46Z"
+    },
+    "model": "auth.user",
+    "pk": 5
 }
 ]
