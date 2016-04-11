@@ -101,28 +101,31 @@ class ProfileTest(TestCase):
         self.assertEqual(profile.__str__(), 'First Last (user1)')
 
 # Commands
-class CommandTest(TestCase):
-    fixtures = ['users', 'contacts', 'connections']
+class BasicGetRemindersTest(TestCase):
+    fixtures = ['users', 'profiles', 'contacts', 'connections']
     def test_date_ok_send_sms_reminder_for_due_connections(self):
         with mock.patch.object(Command, '_send_sms_reminder'):
             call_command('get_reminders', '-y 2016', '-d 19', '-m 03')
             self.assertTrue(Command._send_sms_reminder.called, "Failed to send SMS.")
+            expected_to_phone = '+17036257100'
             expected_reminder_text = 'Call Amy Schumer!\n'
-            Command._send_sms_reminder.assert_called_once_with(expected_reminder_text)
+            Command._send_sms_reminder.assert_called_with(expected_to_phone, expected_reminder_text)
 
     def test_date_ok_send_sms_reminder_for_overdue_connections(self):
         with mock.patch.object(Command, '_send_sms_reminder'):
             call_command('get_reminders', '-y 2016', '-d 20', '-m 03')
             self.assertTrue(Command._send_sms_reminder.called, "Failed to send SMS.")
+            expected_to_phone = '+17036257100'
             expected_reminder_text = 'Really, call Amy Schumer!\n'
-            Command._send_sms_reminder.assert_called_once_with(expected_reminder_text)
+            Command._send_sms_reminder.assert_called_once_with(expected_to_phone, expected_reminder_text)
 
     def test_date_ok_send_sms_reminder_for_due_and_overdue_connections(self):
         with mock.patch.object(Command, '_send_sms_reminder'):
             call_command('get_reminders', '-y 2016', '-d 21', '-m 03')
             self.assertTrue(Command._send_sms_reminder.called, "Failed to send SMS.")
+            expected_to_phone = '+17036257100'
             expected_reminder_text = 'Call Tina Fey!\nReally, call Amy Schumer!\n'
-            Command._send_sms_reminder.assert_called_once_with(expected_reminder_text)
+            Command._send_sms_reminder.assert_called_once_with(expected_to_phone, expected_reminder_text)
 
     def test_date_ok_dont_send_sms_reminder_if_no_connections(self):
         with mock.patch.object(Command, '_send_sms_reminder'):
@@ -144,6 +147,24 @@ class CommandTest(TestCase):
             call_command('get_reminders')
             self.assertTrue(Command._send_sms_reminder.called, "Failed to send SMS.")
 
+class MultiUserGetRemindersTest(TestCase):
+    fixtures = ['users', 'profiles', 'contacts', 'connections_multiple_users']
+    def test_send_sms_reminder_to_multiple_users(self):
+        with mock.patch.object(Command, '_send_sms_reminder'):
+            call_command('get_reminders', '-y 2016', '-d 17', '-m 04')
+            self.assertTrue(Command._send_sms_reminder.called, "Failed to send SMS.")
+            self.assertEqual(Command._send_sms_reminder.call_count, 2)
+
+            expected_to_phone_1 = '+17036257100'
+            expected_reminder_text_1 = 'Call Tina Fey!\n'
+            first_call = mock.call(expected_to_phone_1, expected_reminder_text_1)
+
+            expected_to_phone_2 = '+1234568790'
+            expected_reminder_text_2 = 'Call Stephen Colbert!\n'
+            second_call = mock.call(expected_to_phone_2, expected_reminder_text_2)
+
+            calls = [first_call, second_call]
+            Command._send_sms_reminder.assert_has_calls(calls)
 # Src
 class TwilioTest(TestCase):
     def setUp(self):

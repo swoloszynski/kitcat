@@ -3,7 +3,7 @@
     "fields": {
         "due_date": "2016-03-28",
         "notes": "",
-        "contact": 6,
+        "contact": 2,
         "is_complete": "False"
     },
     "model": "kitcatapp.connection",
@@ -43,7 +43,7 @@
     "fields": {
         "due_date": "2016-02-27",
         "notes": "",
-        "contact": 6,
+        "contact": 2,
         "is_complete": "True"
     },
     "model": "kitcatapp.connection",
@@ -53,7 +53,7 @@
     "fields": {
         "due_date": "2016-03-21",
         "notes": "",
-        "contact": 6,
+        "contact": 2,
         "is_complete": "False"
     },
     "model": "kitcatapp.connection",
