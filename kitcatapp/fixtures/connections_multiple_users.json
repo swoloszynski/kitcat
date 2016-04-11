@@ -1,0 +1,22 @@
+[
+{
+    "fields": {
+        "due_date": "2016-04-17",
+        "notes": "",
+        "contact": 2,
+        "is_complete": "False"
+    },
+    "model": "kitcatapp.connection",
+    "pk": 7
+},
+{
+    "fields": {
+        "due_date": "2016-04-17",
+        "notes": "",
+        "contact": 3,
+        "is_complete": "False"
+    },
+    "model": "kitcatapp.connection",
+    "pk": 8
+}
+]
