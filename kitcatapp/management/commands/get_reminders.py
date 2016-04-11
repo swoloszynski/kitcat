@@ -82,7 +82,7 @@ class Command(BaseCommand):
                     if message:
                         self._send_sms_reminder(to_phone, message)
                 except:
-                    print('Missing profile for %s' % user)
+                    pass
 
         except ValueError:  # pragma: no cover
             print('No valid date option.')

@@ -217,68 +217,70 @@ class BasicGetRemindersTest(TestCase):
         self.assertEqual(conn_2.due_date, expected_conn_2.due_date)
         self.assertEqual(conn_2.notes, expected_conn_2.notes)
 
-    def test_date_ok_send_sms_reminder_for_due_connections(self):
-        with mock.patch.object(Command, '_send_sms_reminder'):
-            call_command('get_reminders', '-y 2016', '-d 19', '-m 03')
-            self.assertTrue(Command._send_sms_reminder.called, "Failed to send SMS.")
-            expected_to_phone = '+17036257100'
-            expected_reminder_text = 'Call Amy Schumer!'
-            Command._send_sms_reminder.assert_called_with(expected_to_phone, expected_reminder_text)
+    def test_send_sms_reminder_for_due_connections(self):
+        with mock.patch.object(Command, '_init_twilio_client'):
+            with mock.patch.object(Command, '_send_sms_reminder'):
+                call_command('get_reminders', '-y 2016', '-d 19', '-m 03')
+                self.assertTrue(Command._send_sms_reminder.called, "Failed to send SMS.")
+                expected_to_phone = '+17036257100'
+                expected_reminder_text = 'Call Amy Schumer!'
+                Command._send_sms_reminder.assert_called_with(expected_to_phone, expected_reminder_text)
 
-    def test_date_ok_send_sms_reminder_for_overdue_connections(self):
-        with mock.patch.object(Command, '_send_sms_reminder'):
-            call_command('get_reminders', '-y 2016', '-d 20', '-m 03')
-            self.assertTrue(Command._send_sms_reminder.called, "Failed to send SMS.")
-            expected_to_phone = '+17036257100'
-            expected_reminder_text = 'Really, call Amy Schumer!'
-            Command._send_sms_reminder.assert_called_once_with(expected_to_phone, expected_reminder_text)
+    def test_send_sms_reminder_for_overdue_connections(self):
+        with mock.patch.object(Command, '_init_twilio_client'):
+            with mock.patch.object(Command, '_send_sms_reminder'):
+                call_command('get_reminders', '-y 2016', '-d 20', '-m 03')
+                self.assertTrue(Command._send_sms_reminder.called, "Failed to send SMS.")
+                expected_to_phone = '+17036257100'
+                expected_reminder_text = 'Really, call Amy Schumer!'
+                Command._send_sms_reminder.assert_called_once_with(expected_to_phone, expected_reminder_text)
 
-    def test_date_ok_send_sms_reminder_for_due_and_overdue_connections(self):
-        with mock.patch.object(Command, '_send_sms_reminder'):
-            call_command('get_reminders', '-y 2016', '-d 21', '-m 03')
-            self.assertTrue(Command._send_sms_reminder.called, "Failed to send SMS.")
-            expected_to_phone = '+17036257100'
-            expected_reminder_text = 'Call Tina Fey!\nReally, call Amy Schumer!'
-            Command._send_sms_reminder.assert_called_once_with(expected_to_phone, expected_reminder_text)
+    def test_send_sms_reminder_for_due_and_overdue_connections(self):
+        with mock.patch.object(Command, '_init_twilio_client'):
+            with mock.patch.object(Command, '_send_sms_reminder'):
+                call_command('get_reminders', '-y 2016', '-d 21', '-m 03')
+                self.assertTrue(Command._send_sms_reminder.called, "Failed to send SMS.")
+                expected_to_phone = '+17036257100'
+                expected_reminder_text = 'Call Tina Fey!\nReally, call Amy Schumer!'
+                Command._send_sms_reminder.assert_called_once_with(expected_to_phone, expected_reminder_text)
 
-    def test_date_ok_dont_send_sms_reminder_if_no_connections(self):
-        with mock.patch.object(Command, '_send_sms_reminder'):
-            call_command('get_reminders', '-y 2015', '-d 19', '-m 03')
-            self.assertFalse(Command._send_sms_reminder.called, "Tried to send empty SMS.")
+    def test_dont_send_sms_reminder_if_no_connections(self):
+        with mock.patch.object(Command, '_init_twilio_client'):
+            with mock.patch.object(Command, '_send_sms_reminder'):
+                call_command('get_reminders', '-y 2015', '-d 19', '-m 03')
+                self.assertFalse(Command._send_sms_reminder.called, "Tried to send empty SMS.")
 
-    def test_date_ok_dont_send_sms_reminder_if_only_complete_due_connections(self):
-        with mock.patch.object(Command, '_send_sms_reminder'):
-            call_command('get_reminders', '-y 2016', '-d 27', '-m 02')
-            self.assertFalse(Command._send_sms_reminder.called, "Tried to send empty SMS.")
+    def test_dont_send_sms_reminder_if_only_complete_due_connections(self):
+        with mock.patch.object(Command, '_init_twilio_client'):
+            with mock.patch.object(Command, '_send_sms_reminder'):
+                call_command('get_reminders', '-y 2016', '-d 27', '-m 02')
+                self.assertFalse(Command._send_sms_reminder.called, "Tried to send empty SMS.")
 
-    def test_date_ok_dont_send_sms_reminder_if_only_complete_overdue_connections(self):
-        with mock.patch.object(Command, '_send_sms_reminder'):
-            call_command('get_reminders', '-y 2016', '-d 28', '-m 02')
-            self.assertFalse(Command._send_sms_reminder.called, "Tried to send empty SMS.")
-
-    def test_bad_date_dont_send_sms_reminder(self):
-        with mock.patch.object(Command, '_send_sms_reminder'):
-            call_command('get_reminders')
-            self.assertTrue(Command._send_sms_reminder.called, "Failed to send SMS.")
+    def test_dont_send_sms_reminder_if_only_complete_overdue_connections(self):
+        with mock.patch.object(Command, '_init_twilio_client'):
+            with mock.patch.object(Command, '_send_sms_reminder'):
+                call_command('get_reminders', '-y 2016', '-d 28', '-m 02')
+                self.assertFalse(Command._send_sms_reminder.called, "Tried to send empty SMS.")
 
 class MultiUserGetRemindersTest(TestCase):
     fixtures = ['users', 'profiles', 'contacts', 'connections_multiple_users']
     def test_send_sms_reminder_to_multiple_users(self):
-        with mock.patch.object(Command, '_send_sms_reminder'):
-            call_command('get_reminders', '-y 2016', '-d 17', '-m 04')
-            self.assertTrue(Command._send_sms_reminder.called, "Failed to send SMS.")
-            self.assertEqual(Command._send_sms_reminder.call_count, 2)
+        with mock.patch.object(Command, '_init_twilio_client'):
+            with mock.patch.object(Command, '_send_sms_reminder'):
+                call_command('get_reminders', '-y 2016', '-d 17', '-m 04')
+                self.assertTrue(Command._send_sms_reminder.called, "Failed to send SMS.")
+                self.assertEqual(Command._send_sms_reminder.call_count, 2)
 
-            expected_to_phone_1 = '+17036257100'
-            expected_reminder_text_1 = 'Call Tina Fey!'
-            first_call = mock.call(expected_to_phone_1, expected_reminder_text_1)
+                expected_to_phone_1 = '+17036257100'
+                expected_reminder_text_1 = 'Call Tina Fey!'
+                first_call = mock.call(expected_to_phone_1, expected_reminder_text_1)
 
-            expected_to_phone_2 = '+1234568790'
-            expected_reminder_text_2 = 'Call Stephen Colbert!'
-            second_call = mock.call(expected_to_phone_2, expected_reminder_text_2)
+                expected_to_phone_2 = '+1234568790'
+                expected_reminder_text_2 = 'Call Stephen Colbert!'
+                second_call = mock.call(expected_to_phone_2, expected_reminder_text_2)
 
-            calls = [first_call, second_call]
-            Command._send_sms_reminder.assert_has_calls(calls)
+                calls = [first_call, second_call]
+                Command._send_sms_reminder.assert_has_calls(calls)
 # Src
 class TwilioTest(TestCase):
     def setUp(self):
