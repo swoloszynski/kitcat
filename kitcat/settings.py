@@ -56,7 +56,7 @@ ROOT_URLCONF = 'kitcat.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['kitcatapp/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
