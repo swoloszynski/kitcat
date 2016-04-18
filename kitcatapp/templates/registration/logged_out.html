@@ -1,0 +1,14 @@
+{% extends "html5boilerplate-base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col l12 m12 s12 center">
+            <h4 class="blue-grey-text darken-4 kc-top-padding-18">Logged Out</h4>
+            <a class="btn waves-effect waves-light" href="{% url 'django.contrib.auth.views.login' %}">Log Back In</a>
+        </div>
+      </div><!-- End row -->
+</div> <!-- End container -->
+
+{% endblock %}
