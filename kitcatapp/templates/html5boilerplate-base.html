@@ -1,0 +1,71 @@
+{% load staticfiles %}
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+        <!-- Place favicon.ico in the root directory -->
+        <link rel="stylesheet" type="text/css" href="{% static 'kitcatapp/css/html5boilerplate/main.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'kitcatapp/css/html5boilerplate/normalize.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'kitcatapp/css/materialize/materialize.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'kitcatapp/css/kitcatapp.css' %}" />
+
+        <script src="{% static 'kitcatapp/js/html5boilerplate/vendor/modernizr-2.8.3.min.js' %}"></script>
+</head>
+<body>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <header>
+            <nav class="orange lighten-2">
+                <div class="container">
+                    <div class="nav-wrapper">
+                        <a href="#" class="brand-logo">KitCat</a>
+                        <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        {% if user.is_anonymous %}
+                            <li><a href="{% url 'django.contrib.auth.views.login' %}">Login</a></li>
+                        {% else %}
+                            <li>Hello, {{ user }}!</li>
+                            <li><a href="{% url 'django.contrib.auth.views.logout' %}">Logout</a></li>
+                        {% endif %}
+                        </ul>
+                    </div>
+                </div> <!-- End container -->
+            </nav>
+        </header>
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+        <footer class="page-footer orange lighten-2">
+            <div class="container">
+                <div class="row">
+                  <div class="col l7 s12">
+                    <h5 class="white-text">KitCat</h5>
+                    <p class="grey-text text-lighten-4">Seriously, call your mom.</p>
+                  </div>
+                  <div class="col l3 s12 right">
+                    <h5 class="white-text">Want more?</h5>
+                        <ul>
+                            <li><a class="grey-text text-lighten-3" href="https://github.com/swoloszynski/kitcat">Contribute on Github!</a></li>
+                        </ul>
+                  </div>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <div class="container center">
+                    © 2014 Copyright Sam Wolo
+                </div>
+            </div>
+        </footer>
+
+        <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')</script>
+        <script src="{% static 'kitcatapp/js/html5boilerplate/plugins.js' %}"></script>
+        <script src="{% static 'kitcatapp/js/html5boilerplate/main.js' %}"></script>
+    </body>
+</html>
