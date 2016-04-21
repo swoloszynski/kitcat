@@ -10,8 +10,6 @@ from kitcatapp.src._twilio import Twilio
 from kitcatapp.management.commands.get_reminders import Command
 import mock
 import unittest
-from django.test import Client
-from django.contrib import auth
 
 # Models
 class ContactTest(TestCase):
@@ -309,38 +307,3 @@ class TwilioTest(TestCase):
             assert sms.sid is not None
             assert sms.error_code is None
             assert sms.error_message is None
-
-# Views
-class IndexViewTests(TestCase):
-    fixtures = ['users', 'profiles']
-    def setUp(self):
-        self.client = Client()
-
-    def test_login_view(self):
-        # Authentication forms are built in, so not tested here
-        response = self.client.get('/login', follow=True)
-        self.assertContains(response, "Log In")
-        user = auth.get_user(self.client)
-        self.assertTrue(user.is_anonymous())
-
-    def test_logout_view(self):
-        response = self.client.get('/logout', follow=True)
-        self.assertContains(response, "Logged Out")
-        user = auth.get_user(self.client)
-        self.assertTrue(user.is_anonymous())
-
-    def test_index_view_authenticated_no_content(self):
-        self.client.login(username='tester1', password='password')
-        response = self.client.get('/', follow=True)
-        self.assertEqual(response.status_code, 200)
-        user = User.objects.get(username='tester1')
-        self.assertContains(response, "KitCat!")
-        self.assertEqual(response.context['user'], user)
-
-    def test_index_view_not_authenticated_redirect_to_login(self):
-        response = self.client.get('/', follow=True)
-        self.assertRedirects(response, '/login/?next=/', 302, 200)
-        self.assertContains(response, "Log In")
-        user = auth.get_user(self.client)
-        self.assertTrue(user.is_anonymous())
-        self.assertEqual(response.context['user'], user)
