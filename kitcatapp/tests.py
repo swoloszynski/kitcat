@@ -337,6 +337,11 @@ class IndexViewTests(TestCase):
         self.assertContains(response, "KitCat!")
         self.assertEqual(response.context['user'], user)
 
+    def test_index_view_authenticated_no_profile(self):
+        self.client.login(username='noprofile', password='password')
+        response = self.client.get('/', follow=True)
+        self.assertEqual(response.status_code, 404)
+
     def test_index_view_not_authenticated_redirect_to_login(self):
         response = self.client.get('/', follow=True)
         self.assertRedirects(response, '/login/?next=/', 302, 200)
